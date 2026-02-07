@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><style>
+    body {
+        background-color: #ffffff;
+        font-family: sans-serif;
+        text-align: center;
+        padding-top: 50px;
+    }
+    h1 {
+        color: #007aff; /* Das typische Apple-Blau */
+    }
+    button {
+        background-color: #023b01;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<h1>Meine erste Mac-Webseite</h1>
+<p>Hallo das hier ist der erste versuch</p>
+<button>Klick mich!</button>
+</body><script>
+    // Das hier ist JavaScript
+    const button = document.querySelector('button');
+    
+    button.onclick = function() {
+        alert('Glückwunsch! Du hast gerade deinen ersten Button programmiert!');
+        document.body.style.backgroundColor = '#ffcc00'; // Ändert die Farbe beim Klick
+    };
+</script>
+</html><!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Meine erste App</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding-top: 50px; background-color: #ffffff; }
+        
+        /* Das ist der Startbildschirm */
+        #start-screen { display: block; }
+        
+        /* Das Spiel ist am Anfang versteckt (none) */
+        #game-area { display: none; }
+
+        h1 { color: #007aff; }
+        
+        button { 
+            background-color: #023b01; color: white; border: none; 
+            padding: 15px 30px; border-radius: 8px; cursor: pointer; font-size: 18px;
+        }
+
+        #target { 
+            width: 50px; height: 50px; background-color: #ff3b30; 
+            position: absolute; border-radius: 8px; cursor: pointer; 
+        }
+
+        .stats { margin-top: 20px; font-weight: bold; font-size: 20px; }
+    </style>
+</head>
+<body>
+
+    <div id="start-screen">
+        <h1>Meine erste Mac-Webseite</h1>
+        <p>Hallo! Das hier ist der erste Versuch.</p>
+        <button id="main-button">Spiel starten!</button>
+    </div>
+
+    <div id="game-area">
+        <h1>Jage das Quadrat!</h1>
+        <div class="stats">
+            Zeit: <span id="timer">10</span>s | Punkte: <span id="score">0</span>
+        </div>
+        <div id="target"></div>
+    </div>
+
+    <script>
+        const mainButton = document.getElementById('main-button');
+        const startScreen = document.getElementById('start-screen');
+        const gameArea = document.getElementById('game-area');
+        const target = document.getElementById('target');
+        const scoreDisplay = document.getElementById('score');
+        const timerDisplay = document.getElementById('timer');
+
+        let score = 0;
+        let timeLeft = 10;
+        let timerInterval;
+
+        // Was passiert beim Klick auf den ersten Button?
+        mainButton.onclick = function() {
+            startScreen.style.display = 'none'; // Verstecke den Startbildschirm
+            gameArea.style.display = 'block';   // Zeige das Spiel an
+            startGame();
+        };
+
+        function startGame() {
+            score = 0;
+            timeLeft = 10;
+            scoreDisplay.textContent = score;
+            timerDisplay.textContent = timeLeft;
+            
+            moveTarget();
+
+            timerInterval = setInterval(function() {
+                timeLeft--;
+                timerDisplay.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    endGame();
+                }
+            }, 1000);
+        }
+
+        target.onclick = function() {
+            score++;
+            scoreDisplay.textContent = score;
+            moveTarget();
+        };
+
+        function moveTarget() {
+            const x = Math.random() * (window.innerWidth - 60);
+            const y = Math.random() * (window.innerHeight - 200) + 150;
+            target.style.left = x + 'px';
+            target.style.top = y + 'px';
+        }
+
+        function endGame() {
+            clearInterval(timerInterval);
+            alert("Spiel vorbei! Punkte: " + score);
+            
+            // Zurück zum Startbildschirm
+            gameArea.style.display = 'none';
+            startScreen.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
